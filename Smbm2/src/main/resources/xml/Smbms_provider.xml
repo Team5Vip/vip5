@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--<mapper namespace="com.bdqn.entity.mapper.Smbms_providerMapper">
+    <insert id="save">
+  INSERT INTO smbms_provider(id,proCode,proName,proDesc,proContact,proPhone,proAddress,proFax,createsBy,creationDate,modifyBy,modifyDate )
+  VALUES(DEFAULT,#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createsBy},#{creationDate},#{modifyBy},#{modifyDate})
+    </insert>
+    <delete id="del">
+       delete from smbms_provider where id=#{id}
+    </delete>
+    <update id="update">
+     update smbms_provider set modifyBy=#{modifyBy},modifyDate=#{modifyDate}
+     where id=#{id}
+    </update>
+
+</mapper>-->
+<mapper namespace="com.bdqn.mapper.Smbms_providerMapper">
+    <sql id="provider">
+        <where>
+        <if test="proCode!=null and proCode!=''">
+            and  proCode like CONCAT('%',#{proCode},'%')
+        </if>
+        <if test="proName!=null and proName!=''">
+            and  proName like CONCAT('%',#{proName},'%')
+        </if>
+    </where>
+    </sql>
+    <select id="list" resultType="com.bdqn.entity.Smbms_provider">
+        select * from smbms_provider
+    </select>
+    <select id="query" resultType="com.bdqn.entity.Smbms_provider">
+        select * from smbms_provider
+       <include refid="provider"/>
+    </select>
+    <select id="queryByid" resultType="com.bdqn.entity.Smbms_provider">
+        select * from smbms_provider where id=#{id}
+    </select>
+    <update id="update">
+        update smbms_provider set proCode=#{proCode},proName=#{proName},proContact=#{proContact},proPhone=#{proPhone},
+        proAddress=#{proAddress},proFax=#{proFax},proDesc=#{proDesc},modifyBy=#{modifyBy},modifyDate=#{modifyDate}
+        where id=#{id}
+    </update>
+    <delete id="delPro">
+        delete  from smbms_provider where id=#{id}
+    </delete>
+    <insert id="addPro">
+        insert into smbms_provider
+        values(default ,#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createsBy},#{creationDate},modifyBy=#{modifyBy},modifyDate=#{modifyDate})
+    </insert>
+</mapper>

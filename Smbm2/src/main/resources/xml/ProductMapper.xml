@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.ProductMapper">
+    <resultMap id="proList" type="com.bdqn.entity.Smbms_bill">
+        <result property="privderName" column="proName"/>
+    </resultMap>
+    <select id="findAll" resultMap="proList">
+        select sb.* ,proName from Smbms_bill sb,Smbms_provider sp where sb.productName like CONCAT('%', #{productName},'%')
+        and sb.providerId=#{providerId} and sb.idPayment=${idPayment} and sb.providerId=sp.id
+    </select>
+    <select id="queryAll"  resultMap="proList">
+        select sb.* ,proName from Smbms_bill sb,Smbms_provider sp where sb.providerId=sp.id
+       <if test="queryProductName!='' and queryProductName!=null">
+         and sb.productName like CONCAT('%',#{queryProductName},'%')
+       </if>
+        <if test="queryProviderId!=0 and queryProviderId!=null">
+            and sb.providerId=#{queryProviderId}
+        </if>
+        <if test="queryIsPayment!=0 and queryIsPayment!=null">
+            and sb.isPayment=#{queryIsPayment}
+        </if>
+    </select>
+    <insert id="addBill">
+        insert into Smbms_bill
+        values(default ,#{billCode},#{productName},#{productDesc},#{productUnit},#{productCount},#{totalPrice},#{isPayment},#{createdBy},#{creationDate},#{modifyBy},#{modifyDate},#{providerId})
+    </insert>
+    <update id="updateBill">
+        update Smbms_bill set billCode=#{billCode},productName=#{productName},productUnit=#{productUnit},productCount=#{productCount},totalPrice=#{totalPrice},isPayment=#{isPayment}
+       ,modifyBy=#{modifyBy},modifyDate=#{modifyDate},providerId=#{providerId} where id=#{id}
+   </update>
+    <delete id="delBill">
+        delete  from Smbms_bill where id=#{id}
+    </delete>
+    <select id="query"  resultMap="proList">
+        select sb.* ,proName from Smbms_bill sb,Smbms_provider sp where  sb.providerId=sp.id and sb.id=#{id}
+    </select>
+</mapper>
+<!--
+<mapper namespace="com.bdqn.entity.mapper.Smbms_providerMapper">
+    <select id="count" resultType="_int">
+        select count(1) from smbms_provider
+    </select>
+    <select id="list" resultType="com.bdqn.entity.Smbms_provider">
+        select * from smbms_provider
+    </select>
+</mapper>
+-->
