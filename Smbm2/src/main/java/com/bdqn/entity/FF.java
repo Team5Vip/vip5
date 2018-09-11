@@ -1,4 +1,4 @@
 package com.bdqn.entity;
 
-public class BB {
+public class FF {
 }
