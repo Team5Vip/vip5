@@ -1,4 +1,4 @@
 package com.bdqn.entity;
 
-public class CC {
+public class dd {
 }
