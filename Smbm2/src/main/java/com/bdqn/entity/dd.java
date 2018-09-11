@@ -5,5 +5,5 @@ package com.bdqn.entity;
  */
 public class dd {
     private  String geliwei="咖喱味";
-
+     int  i ;
 }
