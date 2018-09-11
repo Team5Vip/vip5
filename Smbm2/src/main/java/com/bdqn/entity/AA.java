@@ -2,7 +2,7 @@ package com.bdqn.entity;
 
 public class AA {
 
-    int c;
+    int d;
 
 
 }
